@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Boyfriend ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffe6eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+            max-width: 400px;
+            position: relative;
+        }
+        h1 {
+            color: #d11a5b;
+            font-size: 24px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        .gif-container img {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+            align-items: center;
+            position: relative;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        #yesBtn:hover {
+            background-color: #ff758f;
+            transform: scale(1.1);
+        }
+        #noBtn {
+            background-color: #707070;
+            color: white;
+            position: absolute;
+            transition: all 0.2s ease;
+        }
+        .hidden {
+            display: none;
+        }
+        .success-text {
+            color: #d11a5b;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+        .warning-text {
+            color: #ff4d6d;
+            font-size: 16px;
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Main Screen -->
+        <div id="quizScreen">
+            <div class="gif-container">
+                <!-- Cute Heart Loading Visual -->
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="#ff4d6d">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <h1>Will you extend being my boyfriend for 2 months?</h1>
+            <div class="buttons">
+                <button id="yesBtn">YES</button>
+                <button id="noBtn">NO</button>
+            </div>
+            <div id="warningMsg" class="warning-text"></div>
+        </div>
+
+        <!-- Success Screen -->
+        <div id="successScreen" class="hidden">
+            <div class="gif-container">
+                <!-- Celebrating Hearts Visual -->
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="#d11a5b">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+            <p class="success-text">Buti naman, wala kang magagawa! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const quizScreen = document.getElementById('quizScreen');
+        const successScreen = document.getElementById('successScreen');
+        const warningMsg = document.getElementById('warningMsg');
+
+        // Initially position the No button explicitly inside the button container
+        resetNoButton();
+
+        function resetNoButton() {
+            noBtn.style.left = '130px';
+            noBtn.style.top = '6px';
+        }
+
+        function moveNoButton() {
+            // Show the warning message
+            warningMsg.innerText = "Ayusin mo sagot gigil mo ako 😤";
+            
+            // Calculate random positions inside the viewport safely
+            const padding = 50;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+            
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+            
+            // Switch to fixed positioning so it escapes its local box and flies anywhere on screen
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Run away on hover/mouseover (for computers)
+        noBtn.addEventListener('mouseover', moveNoButton);
+        
+        // Run away on touch/tap (for mobile phones)
+        noBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Prevents clicking accidental behavior
+            moveNoButton();
+        });
+
+        // Trigger warning even if clicked
+        noBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Click Yes to reveal final text
+        yesBtn.addEventListener('click', () => {
+            quizScreen.classList.add('hidden');
+            successScreen.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
